@@ -12,10 +12,10 @@ DESCRIPTION_b = """
 """
 
 # --- Contacts ---
-EMAIL = "xphoenixx32@email.com"
+EMAIL = "xxleanlinxx@email.com"
 SOCIAL_MEDIA = {
     "LinkedIn": "https://www.linkedin.com/in/leanlin/",
-    "GitHub": "https://github.com/xphoenixx32",
+    "GitHub": "https://github.com/xxleanlinxx",
     "Line ID": "archer840510"
 }
 
@@ -140,7 +140,7 @@ PROJECTS = {
                 https://ml-xai-showcase-toolkit.streamlit.app/
             ''',
             'repo':'''
-                https://github.com/xphoenixx32/MLshowcase-streamlit/tree/main
+                https://github.com/xxleanlinxx/MLshowcase-streamlit/tree/main
             '''
         },
         'app':{
@@ -155,7 +155,7 @@ PROJECTS = {
                 https://data-eda-toolkit.streamlit.app/
             ''',
             'repo':'''
-                https://github.com/xphoenixx32/EDA-streamlit/tree/main
+                https://github.com/xxleanlinxx/EDA-streamlit/tree/main
             '''
         },
         'wal':{
@@ -170,7 +170,7 @@ PROJECTS = {
                 https://walmart-casestudy-leanlinmy.my.canva.site/
             ''',
             'repo':'''
-                https://github.com/xphoenixx32/case_study/blob/e5288101aeb8f9292dc6b2e9433e3e53842e7d89/factor_analysis_on_walmart_sales_performance.ipynb
+                https://github.com/xxleanlinxx/case_study/blob/e5288101aeb8f9292dc6b2e9433e3e53842e7d89/factor_analysis_on_walmart_sales_performance.ipynb
             '''
         }
     },
