@@ -42,6 +42,11 @@ if selected == 'About':
                               'Education'])
     with tab_a1:
 
+        txt(f"{CAREER['coupang']['title']}, {CAREER['coupang']['corp_name']}", f"{CAREER['coupang']['period']}")
+        st.markdown(CAREER['coupang']['info'])
+
+        st.divider()
+
         txt(f"{CAREER['shopee']['title']}, {CAREER['shopee']['corp_name']}", f"{CAREER['shopee']['period']}")
         st.markdown(CAREER['shopee']['info'])
 

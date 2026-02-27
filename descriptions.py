@@ -2,10 +2,10 @@
 WORK_NAME = "Lean Lin"
 TC_NAME = "Ming Yan, Lin"
 DESCRIPTION_a = """
-a **Data Science Professional** with **6+ years** Practical Experience
+a **Data Science Professional** with **7 years** Practical Experience
 """
 DESCRIPTION_b = """
-- Leverage **Exploratory Data Analysis**, **Data Mining**, and **Machine Learning**
+- Leverage **Exploratory Data Analysis**, **Statistical Analysis**, and **Machine Learning**
 - Create impactful **Visualizations** to uncover **Actionable Trends**
 - Extracting **Data-driven Insights** into **Strategic Business Decisions**
 - A **Self-Motivated Learner**, with a special focus on data science and managerial soft skills
@@ -41,11 +41,23 @@ EDU = {
 }
 
 CAREER = {
+    'coupang':{
+        'title': '#### **Senior Business Intelligence**',
+        'corp_name': '*Coupang*',
+        'period': '*2025 Sep ~ Present*',
+        'info': '''
+            - Built `hybrid semantic search pipeline` (bm25 + RRF + cross-encoder) processing support tickets with bge-m3 embeddings, achieving `+10% precision & +21% recall` over keyword search and `<1.5s latency`.
+            - Built `automated 5+ data pipelines` and `2+ internal tools` using Apache Airflow, Apache Superset, and API Gateway to support real-time monitoring and recurring analytics.
+            - Designed and delivered scalable BI solutions to uncover root causes, operational bottlenecks, and service quality gaps across end-to-end support workflows.
+            - Led `10+ analytics initiatives` on operational and service scenarios including `agent efficiency`, `SLA performance`, `operational sequential analysis`, and `ticket-level semantic grouping`.
+        '''
+    },
     'shopee':{
         'title': '#### **Data Analyst, Business Intelligence**',
         'corp_name': '*Shopee*',
-        'period': '*2024 Jan ~ Present*',
+        'period': '*2024 Jan ~ 2025 Sep*',
         'info': '''
+            - Led `AI training` for 250+ employees, driving a `+31.8% increase in understanding` and `+24.2% improvement in tool proficiency`, which significantly accelerated AI adoption and enhanced workplace efficiency.
             - Leverage RFM framework to `segment users` and `predict their future login inclination` using `LightGBM` with `93% precison rate`.
             - Building a `Prophet` model to `predict upcoming campaign GMV` with `2.7% MAPE` (train) and `1.8% MAPE gap` (valid - train) , further enhancing efficiency on marketing resources allocation
             - Building a `local crm data warehouse` conserved `95%` of computation time, which `integrate user features` from different departments, and `standardize the data structure` for future analysis.
@@ -101,20 +113,24 @@ SKILLS = {
         - `Looker Studio`, `Tableau`, `Power BI`
         - `Excel`, `Power Query`, `Power Pivot`
         ---
-        #### Analytical Skills 📖
+        #### Data Skills 📖
         - `Exploratory Data Analysis` and `Feature Engineering`
-        - `Data Visualization` 
-            - *Seaborn, Plotly, PyGWalker*
+        - `ETL` & `Data Management`
+        - `Data Visualization`
         - `Machine Learning`
-            - Tree-Based: *RandomForest, XgBoost, CatBoost, LightGBM*
+            - Tree-Based: *RandomForest, XgBoost, LightGBM*
             - Deep Learning: *LSTM*
+        = `Natural Language Processing`
+            - Leverage *Text Embedding Models (Qwen3-embedding, BGE-M3)*
+            - Dimensionality Reduction: *Apple Atlas*
+            - Topic Modeling: *BERTopic*
+            - *RRF*: Combining *Semantic Search* & *BM25*
         - `Explainable AI Method`
             - *LIME, SHAP*
         - `Statistical Models`
             - Linear: *OLS, LR*
             - Dimensionality Reduction: *PCA, t-SNE, Clustering*
             - Time-Series: *ARIMAX, Prophet*
-        - `ETL` & `Data Management`
         ---
     ''',
     'certificate_1':'''
