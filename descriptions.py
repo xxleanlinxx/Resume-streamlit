@@ -120,7 +120,7 @@ SKILLS = {
         - `Machine Learning`
             - Tree-Based: *RandomForest, XgBoost, LightGBM*
             - Deep Learning: *LSTM*
-        = `Natural Language Processing`
+        - `Natural Language Processing`
             - Leverage *Text Embedding Models (Qwen3-embedding, BGE-M3)*
             - Dimensionality Reduction: *Apple Atlas*
             - Topic Modeling: *BERTopic*
@@ -131,7 +131,6 @@ SKILLS = {
             - Linear: *OLS, LR*
             - Dimensionality Reduction: *PCA, t-SNE, Clustering*
             - Time-Series: *ARIMAX, Prophet*
-        ---
     ''',
     'certificate_1':'''
         - *Stanford  **Machine Learning**  Specialization*

@@ -1,8 +1,11 @@
+import re
 import streamlit as st
 from streamlit_option_menu import option_menu
 from pathlib import Path
-from descriptions import WORK_NAME, TC_NAME, DESCRIPTION_a, DESCRIPTION_b, EMAIL, SOCIAL_MEDIA, PROJECTS, EDU, CAREER, SKILLS
-from print_txt import txt
+from descriptions import (
+    WORK_NAME, TC_NAME, DESCRIPTION_a, DESCRIPTION_b,
+    EMAIL, SOCIAL_MEDIA, PROJECTS, EDU, CAREER, SKILLS
+)
 
 # --- Path Settings ---
 current_dir = Path(__file__).parent if "__file__" in locals() else Path.cwd()
@@ -12,303 +15,375 @@ resume_file = current_dir / "assets" / "resume_leanlinmy.pdf"
 with open(resume_file, "rb") as pdf_file:
     PDFbyte = pdf_file.read()
 
-# --- Top Header ---
-st.set_page_config(layout = "centered")
-
-st.title(f'''***{WORK_NAME}***''')
-st.markdown(f'''##### ***{TC_NAME}***''')
-st.warning(DESCRIPTION_a, icon = "💡")
-st.success(DESCRIPTION_b, icon = "⚡")
-
-st.download_button(
-    label = "  ⏬ **Download Resume** (*.pdf*)  ",
-    data = PDFbyte,
-    file_name = resume_file.name,
-    mime = "application/octet-stream",
-    help = "Click to download the resume as a PDF file."
+# ============================================================
+# Page Config & Global CSS
+# ============================================================
+st.set_page_config(
+    page_title=f"{WORK_NAME} — Resume",
+    page_icon="📄",
+    layout="centered",
+    initial_sidebar_state="collapsed",
 )
 
-# --- Format Layout ---
+GLOBAL_CSS = """
+<style>
+/* ---------- Import Google Font ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ---------- Base ---------- */
+html, body, [class*="st-"] {
+    font-family: 'Inter', sans-serif;
+}
+
+/* ---------- Hide sidebar completely for mobile-first ---------- */
+section[data-testid="stSidebar"] {
+    display: none;
+}
+button[data-testid="stSidebarCollapsedControl"] {
+    display: none;
+}
+
+/* ---------- Metric Cards ---------- */
+div[data-testid="stMetric"] {
+    background: linear-gradient(135deg, #667eea22, #764ba222);
+    border: 1px solid rgba(118, 75, 162, 0.25);
+    border-radius: 12px;
+    padding: 16px 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+div[data-testid="stMetric"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.2);
+}
+div[data-testid="stMetric"] label {
+    color: #a0a0b0 !important;
+    font-size: 0.8rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+div[data-testid="stMetric"] [data-testid="stMetricValue"] {
+    font-weight: 700 !important;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ---------- Expander Card ---------- */
+div[data-testid="stExpander"] {
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    margin-bottom: 8px;
+    transition: border-color 0.2s;
+}
+div[data-testid="stExpander"]:hover {
+    border-color: rgba(102, 126, 234, 0.4);
+}
+
+/* ---------- Container (bordered) Card ---------- */
+div[data-testid="stVerticalBlock"] > div[data-testid="stVerticalBlockBorderWrapper"] {
+    border-radius: 14px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+div[data-testid="stVerticalBlock"] > div[data-testid="stVerticalBlockBorderWrapper"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* ---------- Tabs ---------- */
+button[data-baseweb="tab"] {
+    font-weight: 600 !important;
+    letter-spacing: 0.3px;
+}
+
+/* ---------- Dialog ---------- */
+div[data-testid="stDialog"] > div {
+    border-radius: 16px;
+}
+
+/* ---------- Link-Button Style ---------- */
+a[data-testid="baseLinkButton-secondary"] {
+    border-radius: 8px !important;
+    transition: transform 0.15s !important;
+}
+a[data-testid="baseLinkButton-secondary"]:hover {
+    transform: scale(1.03);
+}
+
+/* ---------- Fade-in Animation ---------- */
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.stMainBlockContainer {
+    animation: fadeSlideIn 0.45s ease-out;
+}
+
+/* ---------- Highlighter for key terms ---------- */
+.hl {
+    background: linear-gradient(120deg, #a8e6cf55 0%, #dcedc155 100%);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+/* ---------- Dark mode highlighter ---------- */
+@media (prefers-color-scheme: dark) {
+    .hl {
+        background: linear-gradient(120deg, #2d6a4f55 0%, #40916c44 100%);
+        color: #b7e4c7;
+    }
+}
+</style>
+"""
+st.markdown(GLOBAL_CSS, unsafe_allow_html=True)
+
+
+# ============================================================
+# Helper — Convert backtick `text` to highlighted <span>
+# ============================================================
+_BACKTICK_RE = re.compile(r"`([^`]+)`")
+
+def highlight_text(md_text: str) -> str:
+    """Replace `backtick` terms with <span class='hl'>bold</span> highlights."""
+    return _BACKTICK_RE.sub(r"<span class='hl'>\1</span>", md_text)
+
+def st_highlighted(md_text: str):
+    """Render markdown with backtick terms converted to highlighted spans."""
+    st.markdown(highlight_text(md_text), unsafe_allow_html=True)
+
+
+# ============================================================
+# Dialogs (defined before pages so they can be called)
+# ============================================================
+@st.dialog("🖼️ Certificate Viewer", width="large")
+def show_certificate(title: str, image_path: str):
+    """Display a certificate in a modal dialog."""
+    st.markdown(f"#### {title}")
+    st.image(image_path, use_container_width=True)
+    if st.button("Close", use_container_width=True):
+        st.rerun()
+
+
+@st.dialog("📋 Project Details", width="large")
+def show_project_detail(project: dict, has_repo: bool = False):
+    """Display full project info inside a dialog."""
+    st.markdown(project.get("name", ""))
+    st_highlighted(project.get("info", ""))
+    st.markdown("---")
+
+    # Render access links
+    if "access" in project:
+        st.link_button(
+            "🌐  Open Project URL",
+            url=project["access"].strip(),
+            use_container_width=True,
+        )
+    if "access_granger" in project:
+        st.link_button(
+            "1️⃣  Working Note: Granger Causality",
+            url=project["access_granger"].strip(),
+            use_container_width=True,
+        )
+    if "access_prophet" in project:
+        st.link_button(
+            "2️⃣  Working Note: Prophet Modeling",
+            url=project["access_prophet"].strip(),
+            use_container_width=True,
+        )
+    if has_repo and "repo" in project:
+        st.link_button(
+            "👾  GitHub Repository",
+            url=project["repo"].strip(),
+            use_container_width=True,
+        )
+
+
+# ============================================================
+# Helper — Project Card
+# ============================================================
+def render_project_card(project: dict, has_repo: bool = False):
+    """Render a bordered project card with a detail button."""
+    with st.container(border=True):
+        st.markdown(project.get("name", ""))
+        # Show a short preview of info with highlights
+        info_text = project.get("info", "")
+        preview_lines = [l for l in info_text.strip().split("\n") if l.strip()][:2]
+        st_highlighted("\n".join(preview_lines))
+
+        col_l, col_r = st.columns([3, 1])
+        with col_r:
+            if st.button("📋 Details", key=f"btn_{id(project)}", use_container_width=True):
+                show_project_detail(project, has_repo=has_repo)
+
+
+# ============================================================
+# Helper — Career Entry
+# ============================================================
+def render_career_entry(key: str, career: dict):
+    """Render a single career entry as an expander."""
+    title = career["title"].replace("#### ", "").replace("**", "")
+    corp = career["corp_name"].replace("*", "")
+    period = career["period"].replace("*", "")
+    is_current = "Present" in period
+
+    badge = " 🟢" if is_current else ""
+    expander_label = f"**{title}**  —  {corp}{badge}  ·  {period}"
+
+    with st.expander(expander_label, expanded=is_current):
+        st_highlighted(career["info"])
+
+
+# ============================================================
+# Header — Name, Description & Download
+# ============================================================
+st.markdown(f"# {WORK_NAME}")
+st.markdown(f"##### *{TC_NAME}*")
+
+st.info(DESCRIPTION_a.strip(), icon="💡")
+
+# --- Key Metrics ---
+m1, m2, m3 = st.columns(3)
+with m1:
+    st.metric("Experience", "7+ Years")
+with m2:
+    st.metric("Analytics Initiatives", "10+")
+with m3:
+    st.metric("AI Training Attendees", "250+")
+
+st.markdown("")
+
+# --- Core Strengths ---
+with st.container(border=True):
+    st.markdown("#### ⚡ Core Strengths")
+    st.markdown(DESCRIPTION_b)
+
+# --- Download Button ---
+st.download_button(
+    label="⏬  Download Resume (.pdf)",
+    data=PDFbyte,
+    file_name=resume_file.name,
+    mime="application/octet-stream",
+    help="Click to download the resume as a PDF file.",
+    use_container_width=True,
+)
+
+st.markdown("")
+
+# ============================================================
+# Main Navigation — option_menu (horizontal)
+# ============================================================
 with st.container():
     selected = option_menu(
-        menu_title = None,
-        options = ['About', 'Skills', 'Projects', 'Contact'],
-        icons = ['person-circle', 'tools', 'bar-chart-steps', 'telephone-plus-fill'],
-        orientation = 'horizontal'
+        menu_title=None,
+        options=["About", "Skills", "Projects", "Contact"],
+        icons=["person-circle", "tools", "bar-chart-steps", "telephone-plus-fill"],
+        orientation="horizontal",
     )
 
-if selected == 'About':
-    tab_a1, tab_a2 = st.tabs(['Career Summary',
-                              'Education'])
-    with tab_a1:
+# ------ About ------
+if selected == "About":
+    tab_career, tab_edu = st.tabs(["💼  Career Summary", "🎓  Education"])
 
-        txt(f"{CAREER['coupang']['title']}, {CAREER['coupang']['corp_name']}", f"{CAREER['coupang']['period']}")
-        st.markdown(CAREER['coupang']['info'])
+    with tab_career:
+        for key in ["coupang", "shopee", "ailabs", "eland"]:
+            render_career_entry(key, CAREER[key])
 
-        st.divider()
+    with tab_edu:
+        with st.container(border=True):
+            col_e1, col_e2 = st.columns([3, 1])
+            with col_e1:
+                st.markdown(f"{EDU['degree']}, {EDU['school']}")
+            with col_e2:
+                st.markdown(f"*{EDU['period']}*")
+            st.markdown(EDU["info"])
 
-        txt(f"{CAREER['shopee']['title']}, {CAREER['shopee']['corp_name']}", f"{CAREER['shopee']['period']}")
-        st.markdown(CAREER['shopee']['info'])
+# ------ Skills ------
+elif selected == "Skills":
+    tab_hard, tab_soft = st.tabs(["⚙️  Hard Skills", "🤝  Soft Skills"])
 
-        st.divider()
+    with tab_hard:
+        st_highlighted(SKILLS["hard"])
 
-        txt(f"{CAREER['ailabs']['title']}, {CAREER['ailabs']['corp_name']}", f"{CAREER['ailabs']['period']}")
-        st.markdown(CAREER['ailabs']['info'])
-
-        st.divider()
-
-        txt(f"{CAREER['eland']['title']}, {CAREER['eland']['corp_name']}", f"{CAREER['eland']['period']}")
-        st.markdown(CAREER['eland']['info'])
-
-    with tab_a2:
-
-        txt(f"{EDU['degree']}, {EDU['school']}", f"{EDU['period']}")
-        st.markdown(EDU['info'])
-
-if selected == 'Skills':
-    tab_s1, tab_s2 = st.tabs(['Hard Skill', 
-                              'Soft Skill'])
-    with tab_s1:
-        st.markdown(SKILLS['hard'])
-        st.markdown('''
-        #### Certificate 🪪
-        ''')
+        st.markdown("---")
+        st.markdown("#### 🪪 Certificates")
         col1_cer, col2_cer = st.columns(2)
-        
+
         with col1_cer:
-            st.markdown(SKILLS['certificate_1'])
-            st.image("assets/certificate_ml.png")
-        
+            with st.container(border=True):
+                st.markdown(SKILLS["certificate_1"])
+                st.image("assets/certificate_ml.png", use_container_width=True)
+                if st.button("🔍 View Full Size", key="cert_ml", use_container_width=True):
+                    show_certificate(
+                        "Stanford Machine Learning Specialization",
+                        "assets/certificate_ml.png",
+                    )
+
         with col2_cer:
-            st.markdown(SKILLS['certificate_2'])
-            st.image("assets/certificate_bi.png")
-        
-    with tab_s2:
-        st.markdown(SKILLS['soft'])
+            with st.container(border=True):
+                st.markdown(SKILLS["certificate_2"])
+                st.image("assets/certificate_bi.png", use_container_width=True)
+                if st.button("🔍 View Full Size", key="cert_bi", use_container_width=True):
+                    show_certificate(
+                        "Google Business Intelligence Specialization",
+                        "assets/certificate_bi.png",
+                    )
 
-if selected == 'Projects':
-    tab_p1, tab_p2 = st.tabs(['Side Projects',
-                              'Work Projects'])
-    with tab_p1:
-        st.markdown(PROJECTS['side']['ml']['name'])
-        st.markdown(PROJECTS['side']['ml']['info'])
-        st.markdown(
-            f'''
-            <div style="background-color: #292929; padding: 10px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-                <ul style="list-style: none; padding-left: 0; margin-top: 10px;">
-                    <li style="margin-bottom: 5px;">
-                        <a href="{PROJECTS['side']['ml']['access']}" target="_blank" style="color: #9FC5E8; text-decoration: none; font-weight: bold;">
-                            🌐 Shared URL of this Project
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{PROJECTS['side']['ml']['repo']}" target="_blank" style="color: #D9D2E9; text-decoration: none; font-weight: bold;">
-                            👾 GitHub Repo
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            ''',
-            unsafe_allow_html = True
-        )
+    with tab_soft:
+        st.markdown(SKILLS["soft"])
 
-        st.divider()
-        
-        st.markdown(PROJECTS['side']['app']['name'])
-        st.markdown(PROJECTS['side']['app']['info'])
-        st.markdown(
-            f'''
-            <div style="background-color: #292929; padding: 10px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-                <ul style="list-style: none; padding-left: 0; margin-top: 10px;">
-                    <li style="margin-bottom: 5px;">
-                        <a href="{PROJECTS['side']['app']['access']}" target="_blank" style="color: #9FC5E8; text-decoration: none; font-weight: bold;">
-                            🌐 Shared URL of this Project
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{PROJECTS['side']['app']['repo']}" target="_blank" style="color: #D9D2E9; text-decoration: none; font-weight: bold;">
-                            👾 GitHub Repo
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            ''',
-            unsafe_allow_html = True
-        )
+# ------ Projects ------
+elif selected == "Projects":
+    tab_side, tab_work = st.tabs(["🚀  Side Projects", "🏢  Work Projects"])
 
-        st.divider()
+    with tab_side:
+        render_project_card(PROJECTS["side"]["ml"], has_repo=True)
+        render_project_card(PROJECTS["side"]["app"], has_repo=True)
+        render_project_card(PROJECTS["side"]["wal"], has_repo=True)
 
-        st.markdown(PROJECTS['side']['wal']['name'])
-        st.markdown(PROJECTS['side']['wal']['info'])
-        st.markdown(
-            f'''
-            <div style="background-color: #292929; padding: 10px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-                <ul style="list-style: none; padding-left: 0; margin-top: 10px;">
-                    <li style="margin-bottom: 5px;">
-                        <a href="{PROJECTS['side']['wal']['access']}" target="_blank" style="color: #9FC5E8; text-decoration: none; font-weight: bold;">
-                            🌐 Shared URL of this Project
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{PROJECTS['side']['wal']['repo']}" target="_blank" style="color: #D9D2E9; text-decoration: none; font-weight: bold;">
-                            👾 GitHub Repo
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            ''',
-            unsafe_allow_html = True
-        )
+    with tab_work:
+        render_project_card(PROJECTS["work"]["app"])
+        render_project_card(PROJECTS["work"]["rfm"])
+        render_project_card(PROJECTS["work"]["topline"])
+        render_project_card(PROJECTS["work"]["dws"])
+        render_project_card(PROJECTS["work"]["ls"])
 
-    with tab_p2:
+# ------ Contact ------
+elif selected == "Contact":
+    st.markdown("Feel free to reach out through any of the channels below.")
+    st.markdown("")
 
-        st.markdown(PROJECTS['work']['app']['name'])
-        st.markdown(PROJECTS['work']['app']['info'])
-        st.markdown(
-            f'''
-            <div style="background-color: #292929; padding: 10px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-                <ul style="list-style: none; padding-left: 0; margin-top: 10px;">
-                    <li style="margin-bottom: 5px;">
-                        <a href="{PROJECTS['work']['app']['access']}" target="_blank" style="color: #9FC5E8; text-decoration: none; font-weight: bold;">
-                            🌐 Shared URL of this App
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            ''',
-            unsafe_allow_html = True
-        )
+    col1, col2 = st.columns(2)
 
-        st.divider()
-
-        st.markdown(PROJECTS['work']['rfm']['name'])
-        st.markdown(PROJECTS['work']['rfm']['info'])
-        st.markdown(
-            f'''
-            <div style="background-color: #292929; padding: 10px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-                <ul style="list-style: none; padding-left: 0; margin-top: 10px;">
-                    <li style="margin-bottom: 5px;">
-                        <a href="{PROJECTS['work']['rfm']['access']}" target="_blank" style="color: #9FC5E8; text-decoration: none; font-weight: bold;">
-                            🌐 Shared URL of this Project
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            ''',
-            unsafe_allow_html = True
-        )
-
-        st.divider()
-
-        st.markdown(PROJECTS['work']['topline']['name'])
-        st.markdown(PROJECTS['work']['topline']['info'])
-        st.markdown(
-            f'''
-            <div style="background-color: #292929; padding: 10px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-                <ul style="list-style: none; padding-left: 0; margin-top: 10px;">
-                    <li style="margin-bottom: 5px;">
-                        <a href="{PROJECTS['work']['topline']['access_granger']}" target="_blank" style="color: #9FC5E8; text-decoration: none; font-weight: bold;">
-                            1️⃣ Shared URL of the Working Note : Granger Causality Test
-                        </a>
-                    </li>
-                    <li style="margin-bottom: 5px;">
-                        <a href="{PROJECTS['work']['topline']['access_prophet']}" target="_blank" style="color: #9FC5E8; text-decoration: none; font-weight: bold;">
-                            2️⃣ Shared URL of the Working Note : Prophet Modeling
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            ''',
-            unsafe_allow_html = True
-        )
-
-        st.divider()
-
-        st.markdown(PROJECTS['work']['dws']['name'])
-        st.markdown(PROJECTS['work']['dws']['info'])
-        
-        st.divider()
-
-        st.markdown(PROJECTS['work']['ls']['name'])
-        st.markdown(PROJECTS['work']['ls']['info'])
-
-if selected == 'Contact':
-    col1, col2, col3= st.columns([1,0.1,1])
     with col1:
-        st.image('assets/gmail.png', width = 60)
-        st.markdown(
-            f'''
-            <div style="
-                background-color: #eea2ad; 
-                padding: 20px 25px; 
-                border-radius: 8px; 
-                color: #d51e3e; 
-                box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);">
-                <h5 style="margin: 0;"><b>Gmail</b></h5>
-                <p style="margin: 5px 0 0 0;">
-                    {EMAIL}
-                </p>
-            </div>
-            ''',
-            unsafe_allow_html=True
-        )
+        with st.container(border=True):
+            st.image("assets/gmail.png", width=48)
+            st.markdown("##### Gmail")
+            st.code(EMAIL, language=None)
+
+    with col2:
+        with st.container(border=True):
+            st.image("assets/line.png", width=48)
+            st.markdown("##### LINE ID")
+            st.code(SOCIAL_MEDIA["Line ID"], language=None)
+
+    col3, col4 = st.columns(2)
+
     with col3:
-        st.image('assets/line.png', width = 60)
-        st.markdown(
-            f'''
-            <div style="
-                background-color: #b7ded2; 
-                padding: 20px 25px; 
-                border-radius: 8px; 
-                color: #209b38; 
-                box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);">
-                <h5 style="margin: 0;"><b>LINE id</b></h5>
-                <p style="margin: 5px 0 0 0;">
-                    {SOCIAL_MEDIA['Line ID']}
-                </p>
-            </div>
-            ''',
-            unsafe_allow_html=True
-        )
-    st.divider()
-    col3, col4, col5 = st.columns([1,0.1,1])
-    with col3:
-        st.image('assets/linkedin.png', width = 60)
-        st.markdown(
-            f'''
-            <div style="
-                background-color: #b3cde0; 
-                padding: 20px 25px; 
-                border-radius: 8px; 
-                color: #2972b6; 
-                box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);">
-                <h5 style="margin: 0;"><b>LinkedIn</b></h5>
-                <p style="margin: 5px 0 0 0;">
-                    <a href="{SOCIAL_MEDIA['LinkedIn']}" target="_blank" style="color: #0000EE; text-decoration: none;">
-                        {SOCIAL_MEDIA['LinkedIn']}
-                    </a>
-                </p>
-            </div>
-            ''',
-            unsafe_allow_html=True
-        )
-    with col5:
-        st.image('assets/github.png', width = 60)
-        st.markdown(
-            f'''
-            <div style="
-                background-color: #dfdfde; 
-                padding: 20px 25px; 
-                border-radius: 8px; 
-                color: #4d4d4d; 
-                box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);">
-                <h5 style="margin: 0;"><b>GitHub</b></h5>
-                <p style="margin: 5px 0 0 0;">
-                    <a href="{SOCIAL_MEDIA['GitHub']}" target="_blank" style="color: #0000EE; text-decoration: none;">
-                        {SOCIAL_MEDIA['GitHub']}
-                    </a>
-                </p>
-            </div>
-            ''',
-            unsafe_allow_html=True
-        )
+        with st.container(border=True):
+            st.image("assets/linkedin.png", width=48)
+            st.markdown("##### LinkedIn")
+            st.link_button(
+                "🔗  Open LinkedIn Profile",
+                url=SOCIAL_MEDIA["LinkedIn"],
+                use_container_width=True,
+            )
+
+    with col4:
+        with st.container(border=True):
+            st.image("assets/github.png", width=48)
+            st.markdown("##### GitHub")
+            st.link_button(
+                "🔗  Open GitHub Profile",
+                url=SOCIAL_MEDIA["GitHub"],
+                use_container_width=True,
+            )
