@@ -59,12 +59,12 @@ CAREER = {
         'info': '''
             - Led `AI training` for 250+ employees, driving a `+31.8% increase in understanding` and `+24.2% improvement in tool proficiency`, which significantly accelerated AI adoption and enhanced workplace efficiency.
             - Leverage RFM framework to `segment users` and `predict their future login inclination` using `LightGBM` with `93% precison rate`.
-            - Building a `Prophet` model to `predict upcoming campaign GMV` with `2.7% MAPE` (train) and `1.8% MAPE gap` (valid - train) , further enhancing efficiency on marketing resources allocation
+            - Building a `Prophet` model to `predict upcoming campaign Topline` with `2.7% MAPE` (train) and `1.8% MAPE gap` (valid - train) , further enhancing efficiency on marketing resources allocation.
             - Building a `local crm data warehouse` conserved `95%` of computation time, which `integrate user features` from different departments, and `standardize the data structure` for future analysis.
             - Building a `business metrics projection tool`(streamlit app) reduced `40%` of working time, further enhancing the efficiency and optimizing the working fashion.
-            - `Develop and maintain Data Dashboards or Trackers` for marketing analysis needs and routine monitoring, including but not limited to `marketing campaign performance`, `consumer traffic`, and `ordering incentives`.
-            - `Collaborate with cross-functional teams` to `Identify and Prioritize business needs`, and `Provide Data-Driven Insights` to support decision-making.
-            - `Communicate effectively` with stakeholders to ensure alignment on project goals and deliverables.
+            - `Develop and maintain 30+ Data Dashboards or Trackers` for marketing analysis needs and routine monitoring, including but not limited to `marketing campaign performance`, `consumer traffic`, and `ordering incentives`.
+            - `Collaborate with 4+ cross-functional teams` to `Identify and Prioritize business needs`, and `Provide Data-Driven Insights` to support decision-making.
+            - `Communicate effectively` with 20+ stakeholders to ensure alignment on project goals and deliverables.
         '''
     },
     'ailabs':{

@@ -142,10 +142,13 @@ st.markdown(GLOBAL_CSS, unsafe_allow_html=True)
 # Helper — Convert backtick `text` to highlighted <span>
 # ============================================================
 _BACKTICK_RE = re.compile(r"`([^`]+)`")
+_BOLD_RE = re.compile(r"\*\*([^*]+)\*\*")
 
 def highlight_text(md_text: str) -> str:
-    """Replace `backtick` terms with <span class='hl'>bold</span> highlights."""
-    return _BACKTICK_RE.sub(r"<span class='hl'>\1</span>", md_text)
+    """Replace `backtick` and **bold** terms with <span class='hl'> highlights."""
+    result = _BACKTICK_RE.sub(r"<span class='hl'>\1</span>", md_text)
+    result = _BOLD_RE.sub(r"<span class='hl'>\1</span>", result)
+    return result
 
 def st_highlighted(md_text: str):
     """Render markdown with backtick terms converted to highlighted spans."""
@@ -227,7 +230,7 @@ def render_career_entry(key: str, career: dict):
     is_current = "Present" in period
 
     badge = " 🟢" if is_current else ""
-    expander_label = f"**{title}**  —  {corp}{badge}  ·  {period}"
+    expander_label = f"**{title}**{badge}  \n*{corp}*  ·  {period}"
 
     with st.expander(expander_label, expanded=is_current):
         st_highlighted(career["info"])
@@ -255,7 +258,7 @@ st.markdown("")
 # --- Core Strengths ---
 with st.container(border=True):
     st.markdown("#### ⚡ Core Strengths")
-    st.markdown(DESCRIPTION_b)
+    st_highlighted(DESCRIPTION_b)
 
 # --- Download Button ---
 st.download_button(
@@ -282,13 +285,19 @@ with st.container():
 
 # ------ About ------
 if selected == "About":
-    tab_career, tab_edu = st.tabs(["💼  Career Summary", "🎓  Education"])
+    sub_about = option_menu(
+        menu_title=None,
+        options=["Career Summary", "Education"],
+        icons=["briefcase-fill", "mortarboard-fill"],
+        orientation="horizontal",
+        key="sub_about",
+    )
 
-    with tab_career:
+    if sub_about == "Career Summary":
         for key in ["coupang", "shopee", "ailabs", "eland"]:
             render_career_entry(key, CAREER[key])
 
-    with tab_edu:
+    elif sub_about == "Education":
         with st.container(border=True):
             col_e1, col_e2 = st.columns([3, 1])
             with col_e1:
@@ -299,9 +308,15 @@ if selected == "About":
 
 # ------ Skills ------
 elif selected == "Skills":
-    tab_hard, tab_soft = st.tabs(["⚙️  Hard Skills", "🤝  Soft Skills"])
+    sub_skills = option_menu(
+        menu_title=None,
+        options=["Hard Skills", "Soft Skills"],
+        icons=["gear-fill", "people-fill"],
+        orientation="horizontal",
+        key="sub_skills",
+    )
 
-    with tab_hard:
+    if sub_skills == "Hard Skills":
         st_highlighted(SKILLS["hard"])
 
         st.markdown("---")
@@ -328,19 +343,25 @@ elif selected == "Skills":
                         "assets/certificate_bi.png",
                     )
 
-    with tab_soft:
+    elif sub_skills == "Soft Skills":
         st.markdown(SKILLS["soft"])
 
 # ------ Projects ------
 elif selected == "Projects":
-    tab_side, tab_work = st.tabs(["🚀  Side Projects", "🏢  Work Projects"])
+    sub_projects = option_menu(
+        menu_title=None,
+        options=["Side Projects", "Work Projects"],
+        icons=["rocket-takeoff-fill", "building-fill"],
+        orientation="horizontal",
+        key="sub_projects",
+    )
 
-    with tab_side:
+    if sub_projects == "Side Projects":
         render_project_card(PROJECTS["side"]["ml"], has_repo=True)
         render_project_card(PROJECTS["side"]["app"], has_repo=True)
         render_project_card(PROJECTS["side"]["wal"], has_repo=True)
 
-    with tab_work:
+    elif sub_projects == "Work Projects":
         render_project_card(PROJECTS["work"]["app"])
         render_project_card(PROJECTS["work"]["rfm"])
         render_project_card(PROJECTS["work"]["topline"])
