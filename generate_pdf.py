@@ -8,7 +8,7 @@ with open("assets/resume_leanlinmy.md", "r", encoding="utf-8") as f:
 css = """
 body {
     font-size: 8.5px;
-    font-family: 'Inter', sans-serif;
+    font-family: Georgia, serif;
     line-height: 1.5;
 }
 h2 {
