@@ -7,24 +7,24 @@ with open("assets/resume_leanlinmy.md", "r", encoding="utf-8") as f:
 # Custom CSS to shrink the margins and font sizes, ensuring it fits on one page
 css = """
 body {
-    font-size: 8.5px;
+    font-size: 8px;
     font-family: Georgia, serif;
     line-height: 1.5;
 }
 h2 {
-    font-size: 13px;
-    margin-top: 2px;
+    font-size: 11px;
+    margin-top: 3px;
     margin-bottom: 2px;
     border-bottom: 1px solid #ccc;
-    padding-bottom: 1px;
+    padding-bottom: 2px;
 }
 h3 {
-    font-size: 11px;
+    font-size: 9px;
     margin-top: 2px;
     margin-bottom: 1px;
 }
 h4 {
-    font-size: 10px;
+    font-size: 8px;
     margin-top: 2px;
     margin-bottom: 1px;
 }
@@ -34,7 +34,7 @@ p, ul, li {
 }
 /* Reduce page margins */
 @page {
-    margin: 0.5cm 0.5cm 0.5cm 0.5cm;
+    margin: 0.2cm 0.5cm;
 }
 """
 

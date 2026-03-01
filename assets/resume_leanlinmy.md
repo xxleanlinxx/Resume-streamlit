@@ -16,33 +16,33 @@
 
 ### ***Senior Business Intelligence*** | **Coupang** | 2025 Sep – Present
 - **AI/ML Lifecycle Deployment**
-    - Built a **hybrid semantic search model** (RRF, BM25 & BGE-M3 embeddings), achieving **+10% precision** and **+21% recall** with **<1.5s latency** to streamline support operations.
-- **Technical Program Management & Operations**
-    - Led **10+ data-driven and analytics initiatives** across operational workflows (e.g., process efficiency, SLA performance), collaborating with **4 cross-functional teams** to drive continuous operational improvements.
-- **Data ETL Pipelines & Automation Tool**
-    - Developed and maintained **5+ automated data pipelines** using **Python** and **Apache Airflow** to ensure data quality and availability. Created Chrome extension using the **Apache Superset API** to provide stakeholders with **real-time metrics**, reducing cross-system barriers and manual errors while **cutting audit time by 90%**.
+    - Managed the **AI/ML lifecycle**, deploying a **hybrid semantic search model** into production (RRF, BM25 & BGE-M3 embeddings) with continuous monitoring to ensure long-term reliability. Achieved **+10% precision** and **+21% recall** with **<1.5s latency**.
+- **Technical Program Management**
+    - Led complex, **multi-disciplinary data-driven projects** from start to finish. Collaborated with **4 cross-functional teams** to plan requirements, identify risks, and drive continuous operational efficiency improvements.
+- **Data ETL/ELT Pipelines & Automation**
+    - Built and maintained **automated data pipelines (ETL/ELT)** using **Python** and **Apache Airflow** for data manipulation, ensuring data quality and availability. Created custom API extensions for **task automation**, **cutting audit time by 90%** and providing stakeholders with real-time metrics.
 
 ### ***Data Analyst, Business Intelligence*** | **Shopee** | 2024 Jan – 2025 Sep
 - **Executive-Level Dashboards & Insights**
-    - Designed and maintained **30+ performance dashboards/trackers**, transforming large datasets into actionable insights to facilitate faster executive decision-making.
+    - Designed and maintained **30+ performance dashboards/trackers** utilizing advanced data visualization methodologies to transform business data into **actionable insights**, explaining team analyses to enable data-driven **executive decision-making**.
 - **Data Warehousing & Data Quality**
-    - Built a **local CRM data warehouse** for better data manipulation and automation. **Standardized multi-department schemas**, improving data availability and **reducing computation time by 95%**.
+    - Oversaw the delivery of a **local CRM data warehouse** to streamline **data manipulation**. Standardized multi-department schemas, improving data availability and **reducing computation time by 95%**.
 - **Statistical Analysis & Predictive Modeling**
-    - Built and deployed a **Prophet forecasting model** for operational prediction with **2.7% MAPE (train)** and **1.8% MAPE gap (valid - train)**, **cutting manual projection time by 95%**.
+    - Utilized **statistical analysis and machine learning techniques** to build and deploy a Prophet forecasting model into production. Achieved **2.7% MAPE**, identified operational trends, and **cut manual projection time by 95%**.
 - **Cross-Functional Collaboration**
-    - Managed data tool adoption programs, lecturing AI session for **250+ employees**. Partnered with **4+ cross-functional teams** to gather data requirements, develop analysis strategies, and effectively communicate findings.
+    - Partnered with **4+ cross-functional teams** to gather data requirements, develop data analysis strategies, and communicate findings effectively. Discussed technical tradeoffs with engineers and delivered business value to operations.
 
 ### ***Lead Data Analyst*** | **Taiwan AiLabs** | 2023 Feb – 2023 Dec
 - **Team Leadership & Program Delivery**
-    - Led a team of **3 data analysts**, and oversaw the delivery of analytics initiatives aligned with business goals.
-- **Anomaly detection & Analytics**
-    - Applied **ML methodology** and **Graph Community Detection** to detect and cluster atypical social accounts. Produced **40+ investigative visualizations and actionable findings**.
+    - Led a team of **3 data analysts**, overseeing the programmatic delivery of technical analytics initiatives aligned with overarching business goals.
+- **Statistical Analysis & AI/ML Methodologies**
+    - Applied statistical analysis and **Graph Community Detection** machine learning techniques to analyze large datasets and identify anomalous network trends, producing **40+ investigative visualizations**.
 
 ### ***Senior Business Analyst*** | **eLand Information** | 2019 Mar – 2023 Feb
 - **End-to-End Analytics & Task Automation**
-    - Delivered **100+ analytics reports** by owning end-to-end workflows.
+    - Delivered **100+ analytics reports** by utilizing Python for **task automation** and managing end-to-end data workflows.
 - **Data Communication**
-    - Served as a lecturer for **25+ training sessions**, breaking down complex analytical strategies for cross-functional teams.
+    - Served as a lecturer for **25+ training sessions**, communicating clearly with cross-functional partners and explaining analytical strategies to stakeholders.
 
 ---
 
