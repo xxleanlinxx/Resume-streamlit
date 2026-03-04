@@ -208,10 +208,10 @@ def render_project_card(project: dict, has_repo: bool = False):
     """Render a bordered project card with a detail button."""
     with st.container(border=True):
         st.markdown(project.get("name", ""))
-        # Show a short preview of info with highlights
+        # Show a short preview of info (plain markdown, no HTML highlights)
         info_text = project.get("info", "")
         preview_lines = [l for l in info_text.strip().split("\n") if l.strip()][:2]
-        st_highlighted("\n".join(preview_lines))
+        # st.markdown("\n".join(preview_lines))
 
         col_l, col_r = st.columns([3, 1])
         with col_r:
