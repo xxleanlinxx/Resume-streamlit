@@ -250,7 +250,7 @@ PROJECTS = {
                 - Leverage `ARIMAX` and `Prophet` Models in testing phase
             ''',
             'access_granger': '''
-                https://www.notion.so/Testify-Causality-Correlation-for-Time-Series-Data-1e55d7926f8f80f6a442c6841471014b?pvs=4
+                https://twilight-torta-0ee.notion.site/Assess-Stationarity-and-Granger-Causality-Workflow-for-Time-Series-26a5d7926f8f810ba4b2f4c722fe6cce
             ''',
             'access_prophet': '''
                 https://www.notion.so/Facebook-Prophet-Modeling-101-1f35d7926f8f805ca4bcc5ba06f2a91d?pvs=4

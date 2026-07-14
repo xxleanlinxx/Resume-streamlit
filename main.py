@@ -2,6 +2,7 @@ import re
 import streamlit as st
 from streamlit_option_menu import option_menu
 from pathlib import Path
+from urllib.parse import urlparse
 from descriptions import (
     WORK_NAME, TC_NAME, DESCRIPTION_a, DESCRIPTION_b,
     EMAIL, SOCIAL_MEDIA, PROJECTS, EDU, CAREER, SKILLS
@@ -155,6 +156,15 @@ def st_highlighted(md_text: str):
     st.markdown(highlight_text(md_text), unsafe_allow_html=True)
 
 
+def external_url(raw_url: str) -> str:
+    """Normalize and validate URLs before rendering external links."""
+    url = re.sub(r"\s+", "", raw_url or "")
+    parsed = urlparse(url)
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+        raise ValueError(f"Invalid external URL: {raw_url!r}")
+    return url
+
+
 # ============================================================
 # Dialogs (defined before pages so they can be called)
 # ============================================================
@@ -178,25 +188,25 @@ def show_project_detail(project: dict, has_repo: bool = False):
     if "access" in project:
         st.link_button(
             "🌐  Open Project URL",
-            url=project["access"].strip(),
+            url=external_url(project["access"]),
             use_container_width=True,
         )
     if "access_granger" in project:
         st.link_button(
             "1️⃣  Working Note: Granger Causality",
-            url=project["access_granger"].strip(),
+            url=external_url(project["access_granger"]),
             use_container_width=True,
         )
     if "access_prophet" in project:
         st.link_button(
             "2️⃣  Working Note: Prophet Modeling",
-            url=project["access_prophet"].strip(),
+            url=external_url(project["access_prophet"]),
             use_container_width=True,
         )
     if has_repo and "repo" in project:
         st.link_button(
             "👾  GitHub Repository",
-            url=project["repo"].strip(),
+            url=external_url(project["repo"]),
             use_container_width=True,
         )
 
@@ -204,7 +214,7 @@ def show_project_detail(project: dict, has_repo: bool = False):
 # ============================================================
 # Helper — Project Card
 # ============================================================
-def render_project_card(project: dict, has_repo: bool = False):
+def render_project_card(project: dict, key: str, has_repo: bool = False):
     """Render a bordered project card with a detail button."""
     with st.container(border=True):
         st.markdown(project.get("name", ""))
@@ -213,10 +223,28 @@ def render_project_card(project: dict, has_repo: bool = False):
         preview_lines = [l for l in info_text.strip().split("\n") if l.strip()][:2]
         # st.markdown("\n".join(preview_lines))
 
-        col_l, col_r = st.columns([3, 1])
-        with col_r:
-            if st.button("📋 Details", key=f"btn_{id(project)}", use_container_width=True):
+        links = []
+        if "access" in project:
+            links.append(("🌐 Open Project", project["access"]))
+        if "access_granger" in project:
+            links.append(("1️⃣ Granger Note", project["access_granger"]))
+        if "access_prophet" in project:
+            links.append(("2️⃣ Prophet Note", project["access_prophet"]))
+        if has_repo and "repo" in project:
+            links.append(("👾 GitHub", project["repo"]))
+
+        columns = st.columns(len(links) + 1)
+        with columns[0]:
+            if st.button("📋 Details", key=f"btn_{key}", use_container_width=True):
                 show_project_detail(project, has_repo=has_repo)
+
+        for column, (label, raw_url) in zip(columns[1:], links):
+            with column:
+                st.link_button(
+                    label,
+                    url=external_url(raw_url),
+                    use_container_width=True,
+                )
 
 
 # ============================================================
@@ -357,16 +385,16 @@ elif selected == "Projects":
     )
 
     if sub_projects == "Side Projects":
-        render_project_card(PROJECTS["side"]["ml"], has_repo=True)
-        render_project_card(PROJECTS["side"]["app"], has_repo=True)
-        render_project_card(PROJECTS["side"]["wal"], has_repo=True)
+        render_project_card(PROJECTS["side"]["ml"], "side_ml", has_repo=True)
+        render_project_card(PROJECTS["side"]["app"], "side_app", has_repo=True)
+        render_project_card(PROJECTS["side"]["wal"], "side_wal", has_repo=True)
 
     elif sub_projects == "Work Projects":
-        render_project_card(PROJECTS["work"]["app"])
-        render_project_card(PROJECTS["work"]["rfm"])
-        render_project_card(PROJECTS["work"]["topline"])
-        render_project_card(PROJECTS["work"]["dws"])
-        render_project_card(PROJECTS["work"]["ls"])
+        render_project_card(PROJECTS["work"]["app"], "work_app")
+        render_project_card(PROJECTS["work"]["rfm"], "work_rfm")
+        render_project_card(PROJECTS["work"]["topline"], "work_topline")
+        render_project_card(PROJECTS["work"]["dws"], "work_dws")
+        render_project_card(PROJECTS["work"]["ls"], "work_ls")
 
 # ------ Contact ------
 elif selected == "Contact":
@@ -395,7 +423,7 @@ elif selected == "Contact":
             st.markdown("##### LinkedIn")
             st.link_button(
                 "🔗  Open LinkedIn Profile",
-                url=SOCIAL_MEDIA["LinkedIn"],
+                url=external_url(SOCIAL_MEDIA["LinkedIn"]),
                 use_container_width=True,
             )
 
@@ -405,6 +433,6 @@ elif selected == "Contact":
             st.markdown("##### GitHub")
             st.link_button(
                 "🔗  Open GitHub Profile",
-                url=SOCIAL_MEDIA["GitHub"],
+                url=external_url(SOCIAL_MEDIA["GitHub"]),
                 use_container_width=True,
             )
