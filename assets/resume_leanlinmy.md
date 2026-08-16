@@ -16,11 +16,11 @@
 
 ### ***Senior Business Intelligence*** | **Coupang** | 2025 Sep – Present
 - **AI/ML Lifecycle Deployment**
-    - Managed the **AI/ML lifecycle**, deploying a **hybrid semantic search model** into production (RRF, BM25 & BGE-M3 embeddings) with continuous monitoring to ensure long-term reliability. Achieved **+10% precision** and **+21% recall** with **<1.5s latency**.
+    - Managed the **AI/ML lifecycle**, deploying a **hybrid semantic search model** into production (RRF, BM25 & Qwen3 embeddings) with continuous monitoring to ensure long-term reliability. Achieved **+10% precision** and **+21% recall** with **<1.5s latency**.
 - **Technical Program Management**
     - Led complex, **multi-disciplinary data-driven projects** from start to finish. Collaborated with **4 cross-functional teams** to plan requirements, identify risks, and drive continuous operational efficiency improvements.
 - **Data ETL/ELT Pipelines & Automation**
-    - Built and maintained **automated data pipelines (ETL/ELT)** using **Python** and **Apache Airflow** for data manipulation, ensuring data quality and availability. Created custom API extensions for **task automation**, **cutting audit time by 90%** and providing stakeholders with real-time metrics.
+    - Built and maintained **15+ automated data pipelines and internal tools** using **Python** and **Apache Airflow** for data manipulation, ensuring data quality and availability. Created custom API extensions for **task automation**, **cutting audit time by 90%** and providing stakeholders with real-time metrics.
 
 ### ***Data Analyst, Business Intelligence*** | **Shopee** | 2024 Jan – 2025 Sep
 - **Executive-Level Dashboards & Insights**

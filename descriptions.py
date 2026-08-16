@@ -46,8 +46,8 @@ CAREER = {
         'corp_name': '*Coupang*',
         'period': '*2025 Sep ~ Present*',
         'info': '''
-            - Built `hybrid semantic search pipeline` (bm25 + RRF + cross-encoder) processing support tickets with bge-m3 embeddings, achieving `+10% precision & +21% recall` over keyword search and `<1.5s latency`.
-            - Built `automated 5+ data pipelines` and `2+ internal tools` using Apache Airflow, Apache Superset, and API Gateway to support real-time monitoring and recurring analytics.
+            - Built `hybrid semantic search pipeline` (bm25 + RRF + cross-encoder) processing support tickets with Qwen3 embeddings, achieving `+10% precision & +21% recall` over keyword search and `<1.5s latency`.
+            - Built and maintained `15+ automated data pipelines and internal tools` using Apache Airflow & API Gateway to support real-time monitoring and recurring analytics.
             - Designed and delivered scalable BI solutions to uncover root causes, operational bottlenecks, and service quality gaps across end-to-end support workflows.
             - Led `10+ analytics initiatives` on operational and service scenarios including `agent efficiency`, `SLA performance`, `operational sequential analysis`, and `ticket-level semantic grouping`.
         '''
