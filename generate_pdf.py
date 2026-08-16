@@ -4,22 +4,26 @@ pdf = MarkdownPdf(toc_level=0)
 with open("assets/resume_leanlinmy.md", "r", encoding="utf-8") as f:
     content = f.read()
 
-# Custom CSS to shrink the margins and font sizes, ensuring it fits on one page
 css = """
 body {
     font-size: 8px;
     font-family: Georgia, serif;
-    line-height: 1.2;
+    line-height: 1.5;
+}
+h1 {
+    font-size: 13px;
+    margin-top: 0px;
+    margin-bottom: 1px;
 }
 h2 {
-    font-size: 11px;
-    margin-top: 3px;
+    font-size: 10px;
+    margin-top: 2px;
     margin-bottom: 1px;
     border-bottom: 1px solid #ccc;
     padding-bottom: 1px;
 }
 h3 {
-    font-size: 9px;
+    font-size: 8.5px;
     margin-top: 2px;
     margin-bottom: 0px;
 }
@@ -43,7 +47,6 @@ ul {
 }
 """
 
-# Add section to PDF with custom CSS
 pdf.add_section(Section(content, toc=False), user_css=css)
 pdf.save("assets/resume_leanlinmy.pdf")
 print("PDF generated successfully at assets/resume_leanlinmy.pdf")
