@@ -9,32 +9,37 @@ css = """
 body {
     font-size: 8px;
     font-family: Georgia, serif;
-    line-height: 1.5;
+    line-height: 1.2;
 }
 h2 {
     font-size: 11px;
     margin-top: 3px;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
     border-bottom: 1px solid #ccc;
-    padding-bottom: 2px;
+    padding-bottom: 1px;
 }
 h3 {
     font-size: 9px;
     margin-top: 2px;
-    margin-bottom: 1px;
+    margin-bottom: 0px;
 }
 h4 {
     font-size: 8px;
-    margin-top: 2px;
-    margin-bottom: 1px;
+    margin-top: 1px;
+    margin-bottom: 0px;
 }
 p, ul, li {
-    margin-top: 2px;
-    margin-bottom: 2px;
+    margin-top: 1px;
+    margin-bottom: 1px;
 }
-/* Reduce page margins */
+ul {
+    padding-left: 14px;
+}
 @page {
-    margin: 0.2cm 0.5cm;
+    margin-top: 0.05cm;
+    margin-bottom: 0.15cm;
+    margin-left: 0.5cm;
+    margin-right: 0.5cm;
 }
 """
 
