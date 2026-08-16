@@ -272,17 +272,6 @@ st.markdown(f"##### *{TC_NAME}*")
 
 st.info(DESCRIPTION_a.strip(), icon="💡")
 
-# --- Key Metrics ---
-m1, m2, m3 = st.columns(3)
-with m1:
-    st.metric("Experience", "7+ Years")
-with m2:
-    st.metric("Analytics Initiatives", "10+")
-with m3:
-    st.metric("AI Training Attendees", "250+")
-
-st.markdown("")
-
 # --- Core Strengths ---
 with st.container(border=True):
     st.markdown("#### ⚡ Core Strengths")

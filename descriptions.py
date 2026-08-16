@@ -2,7 +2,7 @@
 WORK_NAME = "Lean Lin"
 TC_NAME = "Ming Yan, Lin"
 DESCRIPTION_a = """
-a **Data Science Professional** with **7 years** Practical Experience
+a **Data Science Professional** with **7+ years** Practical Experience in **Agentic AI Workflow Development**, **Data Engineering**, and **Analytics**
 """
 DESCRIPTION_b = """
 - Leverage **Exploratory Data Analysis**, **Statistical Analysis**, and **Machine Learning**
