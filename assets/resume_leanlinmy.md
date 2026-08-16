@@ -17,6 +17,10 @@
 ### ***Senior Business Intelligence*** | **Coupang** | 2025 Sep – Present
 - **AI/ML Lifecycle Deployment**
     - Managed the **AI/ML lifecycle**, deploying a **hybrid semantic search model** into production (RRF, BM25 & Qwen3 embeddings) with continuous monitoring to ensure long-term reliability. Achieved **+10% precision** and **+21% recall** with **<1.5s latency**.
+- **AI Tooling & Productivity**
+    - Identified a recurring bottleneck in ad-hoc data requests and built a **Python Slack bot** (Devin CLI in non-interactive mode) as a self-service AI assistant for senior leadership — supporting file upload/download, threaded conversations, SQL queries, and on-demand **CSV/PDF/HTML report generation**. Deployed as a macOS LaunchAgent with auto-restart.
+- **Workflow Automation**
+    - Gathered requirements from **4 cross-functional teams** to deliver AI-enabled workflow tools: a **Streamlit platform for bidirectional JIRA–BTS synchronization** and a **Chrome Extension integrated with Superset APIs** that auto-surfaces contextual data — **reducing cross-system investigation time by 70%**.
 - **Technical Program Management**
     - Led complex, **multi-disciplinary data-driven projects** from start to finish. Collaborated with **4 cross-functional teams** to plan requirements, identify risks, and drive continuous operational efficiency improvements.
 - **Data ETL/ELT Pipelines & Automation**

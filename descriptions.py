@@ -46,6 +46,8 @@ CAREER = {
         'corp_name': '*Coupang*',
         'period': '*2025 Sep ~ Present*',
         'info': '''
+            - Identified recurring bottleneck in ad-hoc requests and built a `Python Slack bot` (Devin CLI non-interactive mode) as self-service AI assistant for senior leadership — supporting file upload/download, threaded conversations, SQL queries, and `CSV/PDF/HTML report generation on demand`. Deployed as macOS LaunchAgent with auto-restart.
+            - Gathered requirements from `4 cross-functional teams` to deliver AI-enabled workflow automation tools: a `Streamlit platform for bidirectional JIRA–BTS synchronization` and a `Chrome Extension integrated with Superset APIs` auto-surfacing contextual data — `reducing cross-system investigation time by 70%`.
             - Built `hybrid semantic search pipeline` (bm25 + RRF + cross-encoder) processing support tickets with Qwen3 embeddings, achieving `+10% precision & +21% recall` over keyword search and `<1.5s latency`.
             - Built and maintained `15+ automated data pipelines and internal tools` using Apache Airflow & API Gateway to support real-time monitoring and recurring analytics.
             - Designed and delivered scalable BI solutions to uncover root causes, operational bottlenecks, and service quality gaps across end-to-end support workflows.
