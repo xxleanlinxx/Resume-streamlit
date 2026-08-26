@@ -12,7 +12,7 @@ DESCRIPTION_b = """
 """
 
 # --- Contacts ---
-EMAIL = "xxleanlinxx@email.com"
+EMAIL = "xxleanlinxx@gmail.com"
 SOCIAL_MEDIA = {
     "LinkedIn": "https://www.linkedin.com/in/leanlin/",
     "GitHub": "https://github.com/xxleanlinxx",
@@ -49,9 +49,11 @@ CAREER = {
             - Identified recurring bottleneck in ad-hoc requests and built a `Python Slack bot` (Devin CLI non-interactive mode) as self-service AI assistant for senior leadership — supporting file upload/download, threaded conversations, SQL queries, and `CSV/PDF/HTML report generation on demand`. Deployed as macOS LaunchAgent with auto-restart.
             - Gathered requirements from `4 cross-functional teams` to deliver AI-enabled workflow automation tools: a `Streamlit platform for bidirectional JIRA–BTS synchronization` and a `Chrome Extension integrated with Superset APIs` auto-surfacing contextual data — `reducing cross-system investigation time by 70%`.
             - Built `hybrid semantic search pipeline` (bm25 + RRF + cross-encoder) processing support tickets with Qwen3 embeddings, achieving `+10% precision & +21% recall` over keyword search and `<1.5s latency`.
-            - Built and maintained `15+ automated data pipelines and internal tools` using Apache Airflow & API Gateway to support real-time monitoring and recurring analytics.
+            - Built and maintained `15+ automated data pipelines and internal tools` using Apache Airflow & API Gateway to support real-time monitoring and recurring analytics, with custom API extensions for `task automation` `cutting audit time by 90%` and delivering `real-time metrics` to stakeholders.
+            - Managed `30+ BI dashboards` and automated the `PowerBI/Fabric` delivery lifecycle with a `Skills + MCP toolchain`, orchestrating artifact extraction across `PBIX/TMDL` and visual-level diffs — turning manual BI operations into a `version-controlled, verifiable, and repeatable deployment pipeline`.
             - Designed and delivered scalable BI solutions to uncover root causes, operational bottlenecks, and service quality gaps across end-to-end support workflows.
             - Led `10+ analytics initiatives` on operational and service scenarios including `agent efficiency`, `SLA performance`, `operational sequential analysis`, and `ticket-level semantic grouping`.
+            - Led `complex, multi-disciplinary data-driven projects` from start to finish, partnering with `4 cross-functional teams` to plan requirements, identify risks, and drive continuous `operational efficiency improvements`.
         '''
     },
     'shopee':{

@@ -8,7 +8,7 @@ css = """
 body {
     font-size: 8px;
     font-family: Georgia, serif;
-    line-height: 1.5;
+    line-height: 1.42;
 }
 h1 {
     font-size: 13px;
