@@ -1,6 +1,6 @@
 # Lean Lin (Ming Yan, Lin)
 
-### [**Web Resume**](https://resume-leanlinmy.streamlit.app/) | [**Gmail**](mailto:xxleanlinxx@gmail.com) | [**LinkedIn**](https://www.linkedin.com/in/leanlin/) | [**GitHub**](https://github.com/xxleanlinxx)
+### [**Web Resume**](https://resume-leanlinmy.streamlit.app/) | Email: [**xxleanlinxx@gmail.com**](mailto:xxleanlinxx@gmail.com) | [**LinkedIn**](https://www.linkedin.com/in/leanlin/) | [**GitHub**](https://github.com/xxleanlinxx)
 
 ---
 
